@@ -1,2 +1,1 @@
-# multi-robot-lamp.github.io
-website for our project
+Local preview: `bundle exec jekyll serve`

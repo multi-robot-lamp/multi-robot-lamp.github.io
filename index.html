@@ -449,24 +449,37 @@
         <video controls autoplay loop muted playsinline src="./resources/method/hard-dynamics.mp4" poster="./resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
       </div>
     </div> -->
-    <h2 class="title is-4" style="text-align: center;">ABS framework</h2>
+    <h2 class="title is-4" style="text-align: center;">LAMP framework</h2>
     <div class="columns is-centered has-text-centered">
       <div class="column is-three-thirds">
         <div class="content has-text-justified">
           <ol type="a">
-            <li>Training architecture: There are four trained modules within the ABS framework:
+            <li><strong>Motivation & approach:</strong> We propose LAMP (Long-horizon Adaptive Manipulation Planning), a unified framework that integrates object-level planning with robot-level manipulation feasibility. Unlike prior methods that plan object paths first and verify feasibility afterward, LAMP interleaves planning and feasibility checking, ensuring every object transition can actually be executed by robots in cluttered environments. For each object motion:
               <ol>
-                <li><strong>Agile Policy</strong>  is trained to achieve the maximum agility amidst obstacles;</li>
-                <li><strong>Reach-Avoid Value Network</strong> is trained to predict the RA values conditioned on the agile policy as safety indicators;</li>
-                <li><strong>Recovery Policy</strong> is trained to track desired twist commands (2D linear velocity and yaw angular velocity) that lower the RA values;</li>
-                <li><strong>Ray-Prediction Network</strong>  is trained to predict ray distances as the policies' exteroceptive inputs given depth images.</li>
+                <li>Generate candidate contact strategies + manipulation trajectories (learned model);</li>
+                <li>Plan robot motions to reach contacts (multi-robot planner);</li>
+                <li>Accept transition only if fully feasible.</li>
               </ol>
-            </li>
-            <li>Deployment architecture: The dual policy setup switches between the <em>agile policy</em> and the <em>recovery policy</em> based on the estimated V̂ from the RA value network:
-              <ol>
-                <li>If V̂ < V<sub>threshold</sub>, the <em>agile policy</em> is activated to navigate amidst obstacles;</li>
-                <li>If V̂ ≥ V<sub>threshold</sub>, the <em>recovery policy</em> is activated to track twist commands that lower the RA values via constrained optimization.</li>
-              </ol>
+              This tightly couples planning, learning, and execution, avoiding infeasible object paths.</li>
+            <li><strong>Planning framework:</strong> Given that we verify each transition (as above), we provide two search strategies:
+              <ul style="list-style: none;">
+                <li><strong>LAMP-A* (Eager Search)</strong>
+                  <ul>
+                    <li>Performs A* over joint object–robot space.</li>
+                    <li>Each edge = verified manipulation transition.</li>
+                    <li>Guarantees fully executable long-horizon plan.</li>
+                    <li><strong>Pros:</strong> principled, complete search.</li>
+                    <li><strong>Cons:</strong> expensive (large branching factor), slow replanning.</li>
+                  </ul>
+                </li>
+                <li><strong>LAMP-Lazy (Our Main Method)</strong>
+                  <ul>
+                    <li>Uses D Lite* for object-level planning; defers feasibility checking until needed; maintains a cache of verified transitions.</li>
+                    <li><strong>Workflow:</strong> Plan object path → verify transitions sequentially → penalize infeasible edges → replan efficiently using incremental search.</li>
+                    <li><strong>Pros:</strong> fast replanning, scalable to long horizons, robust to execution drift.</li>
+                  </ul>
+                </li>
+              </ul>
             </li>
           </ol>
         </div>
@@ -475,7 +488,7 @@
     
     <div class="columns is-centered">
       <div class="column is-four-fifth">
-        <img src="./resources/method/ABS-crop.png" alt="" style="width: 100%;" />
+        <img src="./resources/resources/images/method.png" alt="" style="width: 100%;" />
       </div>
     </div>
   </div>

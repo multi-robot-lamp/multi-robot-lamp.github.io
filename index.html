@@ -451,7 +451,7 @@
     </div> -->
     <h2 class="title is-4" style="text-align: center;">LAMP framework</h2>
     <div class="columns is-centered has-text-centered">
-      <div class="column is-three-thirds">
+      <div class="column is-two-thirds">
         <div class="content has-text-justified">
           <ol type="a">
             <li><strong>Motivation & approach:</strong> We propose LAMP (Long-horizon Adaptive Manipulation Planning), a unified framework that integrates object-level planning with robot-level manipulation feasibility. Unlike prior methods that plan object paths first and verify feasibility afterward, LAMP interleaves planning and feasibility checking, ensuring every object transition can actually be executed by robots in cluttered environments. For each object motion:
@@ -461,6 +461,12 @@
                 <li>Accept transition only if fully feasible.</li>
               </ol>
               This tightly couples planning, learning, and execution, avoiding infeasible object paths.</li>
+            <div class="columns is-centered" style="margin: 1rem 0;">
+              <div class="column is-narrow has-text-centered">
+                <video controls loop muted playsinline src="./resources/video/per_step.mp4" style="max-width: 100%; border: 1px solid #bbb; border-radius: 8px;"></video>
+                <p class="is-size-7" style="margin-top: 0.5rem;">Example: per-step verification.</p>
+              </div>
+            </div>
             <li><strong>Planning framework:</strong> Given that we verify each transition (as above), we provide two search strategies:
               <ul style="list-style: none;">
                 <li><strong>LAMP-A* (Eager Search)</strong>
@@ -486,9 +492,10 @@
       </div>
     </div>
     
+    <h2 class="title is-4" style="text-align: center; margin-top: 1.5rem;">LAMP framework overview</h2>
     <div class="columns is-centered">
-      <div class="column is-four-fifth">
-        <img src="./resources/resources/images/method.png" alt="" style="width: 100%;" />
+      <div class="column is-two-thirds">
+        <img src="./resources/images/method.png" alt="" style="width: 100%;" />
       </div>
     </div>
   </div>

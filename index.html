@@ -56,7 +56,7 @@
 
 <body>
 
-<section class="hero">
+<section class="hero publication-hero">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered">
@@ -195,22 +195,22 @@
     </div>
   </div>
 </section> --> 
-<section class="section">
+<section class="section overview-section">
   <div class="container">
     <h2 class="title is-2" style="text-align: center;">Overview</h2>
     <div class="columns is-centered">
-      <div class="column is-two-thirds has-text-centered">
+      <div class="column overview-video-column has-text-centered">
         <video controls autoplay loop muted playsinline src="./resources/video/IROS_VIDEO.mp4" style="max-width: 100%; border: 1px solid #bbb; border-radius: 10px;"></video>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section abstract-section">
   <div class="container">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-two-thirds">
+      <div class="column content-column">
         <h2 class="title is-2">Abstract</h2>
         <div class="content has-text-justified">
           <p>
@@ -432,7 +432,7 @@
   </div>
 </section> -->
 
-<section class="section">
+<section class="section method-section">
   <div class="container">
     <h2 class="title is-2" style="text-align: center;">Method</h2>
     <!-- <h2 class="title is-4" style="text-align: center;">Stage 1: RL Pre-training with Soft Dynamics Constraints</h2>
@@ -467,7 +467,7 @@
     </div> -->
     <h2 class="title is-4" style="text-align: center;">LAMP framework</h2>
     <div class="columns is-centered has-text-centered">
-      <div class="column is-two-thirds">
+      <div class="column content-column">
         <div class="content has-text-justified">
           <ol type="a">
             <li><strong>Motivation & approach:</strong> We propose LAMP (Long-horizon Adaptive Manipulation Planning), a unified framework that integrates object-level planning with robot-level manipulation feasibility. Unlike prior methods that plan object paths first and verify feasibility afterward, LAMP interleaves planning and feasibility checking, ensuring every object transition can actually be executed by robots in cluttered environments. For each object motion:
@@ -510,18 +510,18 @@
     
     <h2 class="title is-4" style="text-align: center; margin-top: 1.5rem;">Framework overview</h2>
     <div class="columns is-centered">
-      <div class="column is-two-thirds">
+      <div class="column content-column">
         <img src="./resources/images/method.png" alt="" style="width: 100%;" />
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section iros-section">
   <div class="container">
     <h2 class="title is-2" style="text-align: center;">'IROS' Assembling</h2>
     <div class="columns is-centered">
-      <div class="column is-two-thirds has-text-centered">
+      <div class="column overview-video-column has-text-centered">
         <video controls autoplay loop muted playsinline src="./resources/video/Iros_assem.mp4" style="max-width: 100%; border: 1px solid #bbb; border-radius: 10px;"></video>
       </div>
     </div>
@@ -558,7 +558,7 @@
 </section> -->
 
 <section class="section" id="BibTeX">
-  <div class="container content">
+  <div class="container content content-column">
     <h2 class="title">BibTeX</h2>
     <pre><code>@inproceedings{Zhou2026lamp,
   author    = {Zhou, Shuai and Shaoul, Yorai and Li, Jiaoyang},

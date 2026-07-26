@@ -217,7 +217,7 @@
               </div>
             </div>
             <figcaption>
-              Fig. 3 (paper order): Warehouse · Random · Tilt · Maze.
+              Evaluation maps (left-to-right, top-to-bottom): Warehouse · Random · Tilt · Maze.
               Obstacles (black), robots (blue), example object start (red) and goal (green).
             </figcaption>
           </figure>
@@ -225,7 +225,7 @@
           <div class="chart-panel">
             <div class="chart-head">
               <h3>Overall success rate</h3>
-              <span class="chart-hint">Table I · click a map</span>
+              <span class="chart-hint">Click a map</span>
             </div>
             <div class="map-pills" id="map-pills" role="tablist" aria-label="Select map">
               <button type="button" class="map-pill active" data-map="all">All maps (mean)</button>
@@ -242,7 +242,14 @@
           <div class="chart-panel">
             <div class="chart-head">
               <h3>Full-horizon planning success</h3>
-              <span class="chart-hint">Table II · complete paths before execution</span>
+              <span class="chart-hint">Complete paths before execution</span>
+            </div>
+            <div class="map-pills" id="horizon-pills" role="tablist" aria-label="Select map for full-horizon success">
+              <button type="button" class="map-pill active" data-map="all">All maps (mean)</button>
+              <button type="button" class="map-pill" data-map="Random">Random</button>
+              <button type="button" class="map-pill" data-map="Maze">Maze</button>
+              <button type="button" class="map-pill" data-map="Tilt">Tilt</button>
+              <button type="button" class="map-pill" data-map="Warehouse">Warehouse</button>
             </div>
             <div class="chart-box">
               <canvas id="chart-horizon" aria-label="Full-horizon planning success chart"></canvas>
@@ -251,12 +258,12 @@
 
           <h3>Planning time</h3>
           <p style="font-size:0.98rem;color:var(--muted);margin-top:0;">
-            Fig. 4: planning time per segment on the 100-scene map suite
+            Planning time per segment on the 100-scene map suite
             (not the long-horizon case study). Failed cases sit at the 500&nbsp;s DNF line.
           </p>
           <figure class="figure">
-            <img class="light" src="./resources/images/experiments/planning-time.png" alt="Planning time violin plot from the paper">
-            <figcaption>Planning-time violin plot (paper Fig. 4) across 100 scenarios.</figcaption>
+            <img class="light" src="./resources/images/experiments/planning-time.png" alt="Planning time violin plot">
+            <figcaption>Planning-time distribution across 100 scenarios.</figcaption>
           </figure>
           <div class="callout good">
             <p>
@@ -268,12 +275,12 @@
 
           <h3>Path cost</h3>
           <p style="font-size:0.98rem;color:var(--muted);margin-top:0;">
-            Fig. 5: each point is a scenario solved by both LAMP-Lazy and a baseline.
+            Each point is a scenario solved by both LAMP-Lazy and a baseline.
             Legend ratios are Lazy / baseline among co-solved cases; DNF marks one-sided failures.
           </p>
           <figure class="figure">
-            <img class="light" src="./resources/images/experiments/path-cost.png" alt="Path cost scatter plot from the paper">
-            <figcaption>Path cost scatter (paper Fig. 5) on the 100-scene map suite.</figcaption>
+            <img class="light" src="./resources/images/experiments/path-cost.png" alt="Path cost scatter plot">
+            <figcaption>Path cost comparison on the 100-scene map suite.</figcaption>
           </figure>
           <div class="callout muted">
             <p>
@@ -287,14 +294,14 @@
         <section id="case-study">
           <h2>Long-horizon sequential manipulation case study</h2>
           <p>
-            Following Sec.&nbsp;IV-B: robots transport 9 objects one-by-one to assemble the “IROS” logo
+            Robots transport 9 objects one-by-one to assemble the “IROS” logo
             in a warehouse-like environment. As objects are placed, the workspace grows more cluttered.
-            This stress test is separate from the Random / Maze / Tilt / Warehouse tables above.
+            This stress test is separate from the Random / Maze / Tilt / Warehouse evaluations above.
           </p>
           <div class="stack">
             <figure class="figure">
               <img class="light" src="./resources/images/experiments/iros-formation.png" alt="IROS formation start to goal">
-              <figcaption>Fig. 6: start → goal formation spelling “IROS” (9 objects).</figcaption>
+              <figcaption>Start → goal formation spelling “IROS” (9 objects).</figcaption>
             </figure>
             <figure class="figure">
               <div class="figure-media">
@@ -444,41 +451,52 @@
         });
       }
 
-      function renderHorizon() {
+      const horizonData = {
+        labels: ['LAMP-A*', 'LAMP-Lazy'],
+        Random: [100, 100],
+        Maze: [8, 100],
+        Tilt: [32, 100],
+        Warehouse: [40, 100],
+      };
+      const horizonColors = ['#7aa86d', '#0f6b5c'];
+
+      function horizonAverageAll() {
+        return horizonData.labels.map((_, i) => {
+          const vals = ['Random', 'Maze', 'Tilt', 'Warehouse'].map((m) => horizonData[m][i]);
+          return Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 10) / 10;
+        });
+      }
+
+      let horizonChart;
+
+      function renderHorizon(mapKey) {
         const canvas = document.getElementById('chart-horizon');
         if (!canvas || typeof Chart === 'undefined') return;
-        new Chart(canvas, {
+        const values = mapKey === 'all' ? horizonAverageAll() : horizonData[mapKey];
+        if (horizonChart) horizonChart.destroy();
+        horizonChart = new Chart(canvas, {
           type: 'bar',
           data: {
-            labels: ['Random', 'Maze', 'Tilt', 'Warehouse'],
-            datasets: [
-              {
-                label: 'LAMP-A*',
-                data: [100, 8, 32, 40],
-                backgroundColor: '#7aa86d',
-                borderRadius: 6,
-                maxBarThickness: 40,
-              },
-              {
-                label: 'LAMP-Lazy',
-                data: [100, 100, 100, 100],
-                backgroundColor: '#0f6b5c',
-                borderRadius: 6,
-                maxBarThickness: 40,
-              },
-            ],
+            labels: horizonData.labels,
+            datasets: [{
+              label: mapKey === 'all' ? 'Mean success (%)' : 'Success rate (%) · ' + mapKey,
+              data: values,
+              backgroundColor: horizonColors,
+              borderRadius: 6,
+              maxBarThickness: 72,
+            }],
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-              legend: { position: 'top', labels: { boxWidth: 12 } },
+              legend: { display: false },
               datalabels: {
                 color: '#1c1914',
                 anchor: 'end',
                 align: 'top',
                 font: { size: 11, weight: '600', family: 'IBM Plex Mono' },
-                formatter: (v) => v + '%',
+                formatter: (v) => (Number.isInteger(v) ? v + '%' : v.toFixed(1) + '%'),
               },
             },
             scales: {
@@ -494,6 +512,16 @@
         });
       }
 
+      function bindMapPills(rootId, onSelect) {
+        document.querySelectorAll('#' + rootId + ' .map-pill').forEach((pill) => {
+          pill.addEventListener('click', () => {
+            document.querySelectorAll('#' + rootId + ' .map-pill').forEach((p) => p.classList.remove('active'));
+            pill.classList.add('active');
+            onSelect(pill.dataset.map);
+          });
+        });
+      }
+
       function bootCharts() {
         if (typeof Chart === 'undefined' || typeof ChartDataLabels === 'undefined') {
           setTimeout(bootCharts, 40);
@@ -501,14 +529,9 @@
         }
         Chart.register(ChartDataLabels);
         renderSuccess('all');
-        renderHorizon();
-        document.querySelectorAll('#map-pills .map-pill').forEach((pill) => {
-          pill.addEventListener('click', () => {
-            document.querySelectorAll('#map-pills .map-pill').forEach((p) => p.classList.remove('active'));
-            pill.classList.add('active');
-            renderSuccess(pill.dataset.map);
-          });
-        });
+        renderHorizon('all');
+        bindMapPills('map-pills', renderSuccess);
+        bindMapPills('horizon-pills', renderHorizon);
       }
       bootCharts();
     })();

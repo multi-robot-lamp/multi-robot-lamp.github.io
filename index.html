@@ -29,7 +29,7 @@
     <div class="splash-scrim" aria-hidden="true"></div>
     <div class="splash-center">
       <p class="splash-acronym">LAMP</p>
-      <h1 class="splash-title">Long-Horizon Adaptive Manipulation Planning for Multi-Robot Collaboration in Cluttered Space</h1>
+      <h1 class="splash-title">Long-Horizon Adaptive Manipulation Planning for<br>Multi-Robot Collaboration in Cluttered Space</h1>
       <p class="splash-authors">
         <a href="https://shuai-zhou.com/" target="_blank" rel="noopener">Shuai Zhou</a>,
         <a href="https://yoraish.com/" target="_blank" rel="noopener">Yorai Shaoul</a>,
@@ -294,14 +294,14 @@
         <section id="case-study">
           <h2>Long-horizon sequential manipulation case study</h2>
           <p>
-            Robots transport 9 objects one-by-one to assemble the “IROS” logo
+            Robots transport 12 objects one-by-one to assemble the “IROS” logo
             in a warehouse-like environment. As objects are placed, the workspace grows more cluttered.
             This stress test is separate from the Random / Maze / Tilt / Warehouse evaluations above.
           </p>
           <div class="stack">
             <figure class="figure">
               <img class="light" src="./resources/images/experiments/iros-formation.png" alt="IROS formation start to goal">
-              <figcaption>Start → goal formation spelling “IROS” (9 objects).</figcaption>
+              <figcaption>Start → goal formation spelling “IROS” (12 objects).</figcaption>
             </figure>
             <figure class="figure">
               <div class="figure-media">
@@ -430,15 +430,20 @@
                 color: '#1c1914',
                 anchor: 'end',
                 align: 'top',
-                clamp: true,
+                offset: 2,
+                clamp: false,
+                clip: false,
                 font: { size: 11, weight: '600', family: 'IBM Plex Mono' },
                 formatter: (v) => (Number.isInteger(v) ? v + '%' : v.toFixed(1) + '%'),
               },
             },
             scales: {
               y: {
-                beginAtZero: true, max: 100, grace: '8%',
-                ticks: { callback: (v) => v + '%' },
+                beginAtZero: true, max: 120,
+                ticks: {
+                  callback: (v) => (v > 100 ? '' : v + '%'),
+                  stepSize: 20,
+                },
                 grid: { color: 'rgba(28,25,20,0.06)' },
               },
               x: {
@@ -446,7 +451,7 @@
                 grid: { display: false },
               },
             },
-            layout: { padding: { top: 18 } },
+            layout: { padding: { top: 12, bottom: 4 } },
           },
         });
       }
@@ -495,19 +500,22 @@
                 color: '#1c1914',
                 anchor: 'end',
                 align: 'top',
+                offset: 2,
+                clamp: false,
+                clip: false,
                 font: { size: 11, weight: '600', family: 'IBM Plex Mono' },
                 formatter: (v) => (Number.isInteger(v) ? v + '%' : v.toFixed(1) + '%'),
               },
             },
             scales: {
               y: {
-                beginAtZero: true, max: 100, grace: '10%',
+                beginAtZero: true, max: 100, suggestedMax: 100, grace: '22%',
                 ticks: { callback: (v) => v + '%' },
                 grid: { color: 'rgba(28,25,20,0.06)' },
               },
               x: { grid: { display: false } },
             },
-            layout: { padding: { top: 18 } },
+            layout: { padding: { top: 32, bottom: 4 } },
           },
         });
       }

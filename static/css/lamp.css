@@ -73,10 +73,11 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   font-size: clamp(1.15rem, 2.1vw, 1.5rem);
   line-height: 1.4;
   margin: 0 auto 1.2rem;
-  max-width: 40em;
+  max-width: 22em;
   color: rgba(255,255,255,0.96);
   text-shadow: 0 1px 12px rgba(0,0,0,0.45);
 }
+.splash-title br { display: block; }
 .splash-authors {
   margin: 0 auto 1.25rem;
   font-size: clamp(1.05rem, 1.7vw, 1.25rem);
@@ -103,25 +104,25 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   opacity: 0.92;
 }
 .splash-logos img.ri-logo {
-  height: 120px;
-  filter: none;
-  background: rgba(255,255,255,0.95);
-  border-radius: 14px;
-  padding: 0.55rem 1.05rem;
+  height: 88px;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35));
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 .splash-actions {
   display: flex; flex-wrap: wrap;
-  justify-content: center; gap: 0.85rem;
+  justify-content: center; gap: 0.55rem;
 }
 .splash-btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.95rem 1.75rem;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.48rem 0.95rem;
   border-radius: 999px;
   background: rgba(15, 107, 92, 0.95);
   border: 1px solid rgba(255,255,255,0.18);
   color: #fff; text-decoration: none;
-  font-size: clamp(1.05rem, 1.8vw, 1.25rem); font-weight: 600;
-  letter-spacing: 0.04em; text-transform: uppercase;
+  font-size: 0.82rem; font-weight: 600;
+  letter-spacing: 0.03em; text-transform: uppercase;
 }
 .splash-btn:hover { background: #0c574b; color: #fff; }
 .splash-btn.ghost { background: rgba(255,255,255,0.14); }
@@ -419,9 +420,9 @@ section > p { font-size: 1.02rem; }
 }
 .chart-panel h3 { margin: 0; font-size: 1.1rem; }
 .chart-hint { font-size: 0.82rem; color: var(--muted); }
-.chart-box { position: relative; height: 320px; }
-.chart-box.tall { height: 360px; }
-.chart-box.scatter { height: 380px; }
+.chart-box { position: relative; height: 380px; }
+.chart-box.tall { height: 420px; }
+.chart-box.scatter { height: 400px; }
 .map-pills {
   display: flex; flex-wrap: wrap; gap: 0.35rem;
   margin: 0.2rem 0 0.8rem;

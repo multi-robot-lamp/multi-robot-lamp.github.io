@@ -105,10 +105,10 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 }
 .splash-logos img.ri-logo {
   height: 88px;
-  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35));
-  background: transparent;
-  border-radius: 0;
-  padding: 0;
+  filter: none;
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  padding: 0.4rem 0.75rem;
 }
 .splash-actions {
   display: flex; flex-wrap: wrap;

@@ -116,8 +116,8 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   height: 64px;
   filter: none;
   background: #fff;
-  border-radius: 6px;
-  padding: 0.12rem 0.28rem;
+  border-radius: 12px;
+  padding: 0.55rem 0.95rem;
 }
 .splash-actions {
   display: flex; flex-wrap: wrap;

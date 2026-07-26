@@ -111,11 +111,11 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   opacity: 0.92;
 }
 .splash-logos img.ri-logo {
-  height: 88px;
+  height: 78px;
   filter: none;
   background: rgba(255,255,255,0.95);
-  border-radius: 12px;
-  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  padding: 0.18rem 0.35rem;
 }
 .splash-actions {
   display: flex; flex-wrap: wrap;

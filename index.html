@@ -509,13 +509,16 @@
             },
             scales: {
               y: {
-                beginAtZero: true, max: 100, suggestedMax: 100, grace: '22%',
-                ticks: { callback: (v) => v + '%' },
+                beginAtZero: true, max: 120,
+                ticks: {
+                  callback: (v) => (v > 100 ? '' : v + '%'),
+                  stepSize: 20,
+                },
                 grid: { color: 'rgba(28,25,20,0.06)' },
               },
               x: { grid: { display: false } },
             },
-            layout: { padding: { top: 32, bottom: 4 } },
+            layout: { padding: { top: 12, bottom: 4 } },
           },
         });
       }

@@ -82,8 +82,10 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   display: inline-block;
   white-space: nowrap;
 }
-@media (max-width: 640px) {
-  .splash-title-line2 { white-space: normal; }
+@media (max-width: 720px) {
+  .splash-title {
+    font-size: clamp(0.95rem, 3.6vw, 1.2rem);
+  }
 }
 .splash-authors {
   margin: 0 auto 1.25rem;
@@ -111,11 +113,11 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   opacity: 0.92;
 }
 .splash-logos img.ri-logo {
-  height: 78px;
+  height: 64px;
   filter: none;
-  background: rgba(255,255,255,0.95);
-  border-radius: 8px;
-  padding: 0.18rem 0.35rem;
+  background: #fff;
+  border-radius: 6px;
+  padding: 0.12rem 0.28rem;
 }
 .splash-actions {
   display: flex; flex-wrap: wrap;
